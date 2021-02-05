@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder>{
 
         public Adapter(Context mContext, List<row> mdata) {
@@ -27,7 +29,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder>{
 
         @Override
         public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-            holder.image.setImageResource(mdata.get(position).getImg());
+            Picasso.with(mContext).load(mdata.get(position).getUrl()).into(holder.image);
         }
 
 

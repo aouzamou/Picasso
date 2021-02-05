@@ -2,18 +2,18 @@ package com.example.projettp;
 
 public class row {
 
-    private int img;
+    private String url;
 
-    public row (int img) {
-        this.img = img;
+    public row (String url) {
+        this.url = url;
     }
 
-    public int getImg(){
-        return img;
+    public String getUrl(){
+        return url;
     }
 
-    public void setImg(int img){
-        this.img = img;
+    public void setUrl(String url){
+        this.url = url;
     }
 
 }

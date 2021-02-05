@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fit();
                 break;
             case R.id.btnGallery:
-                Toast.makeText(getApplicationContext(), "Ca marche", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(intent);
                 break;
