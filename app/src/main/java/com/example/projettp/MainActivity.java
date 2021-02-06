@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Accueil");
         setContentView(R.layout.activity_main);
 
         initView();
@@ -45,8 +48,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
 
         /*String url = "https://i.imgur.com/DvpvklR.png";
-        mPicasso.with(this).load(url).into(imageView);*/
 
+        Picasso mPicasso = Picasso.with(this);
+        mPicasso.setIndicatorsEnabled(true);
+        mPicasso.with(this).load(url).into(imageView);*/
         mPicasso = Picasso.with(this);
         mPicasso.setIndicatorsEnabled(true);
 

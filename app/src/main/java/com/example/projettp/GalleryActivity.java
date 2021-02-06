@@ -32,6 +32,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Galerie");
         setContentView(R.layout.activity_galery);
 
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
