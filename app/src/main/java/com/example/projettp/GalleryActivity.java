@@ -28,6 +28,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Galerie");
         setContentView(R.layout.activity_galery);
         Intent intentSave = getIntent();
         url = intentSave.getStringExtra(url);
