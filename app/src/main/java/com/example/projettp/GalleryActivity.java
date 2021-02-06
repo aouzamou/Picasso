@@ -21,6 +21,7 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
     private Adapter adapter;
     private StaggeredGridLayoutManager manager;
     private Button btnReturn;
+    private String url;
 
 
 
@@ -28,12 +29,15 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
+        Intent intentSave = getIntent();
+        url = intentSave.getStringExtra(url);
+
 
         recyclerView = findViewById(R.id.Recycler);
         manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         List<row> lst = new ArrayList<>();
-        lst.add(new row());
+        lst.add(new row(url));
         //lst.add(new row(R.drawable.first));
         //lst.add(new row(R.drawable.second));
 

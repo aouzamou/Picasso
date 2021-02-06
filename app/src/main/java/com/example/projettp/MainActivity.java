@@ -25,11 +25,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    ImageView imageView;
-    Button btnRotateImage,btnResizeImage,btnFitImage,btnGallery;
-    int i =0;
-    String width, height;
-    boolean stop = false;
+    private ImageView imageView;
+    private Button btnRotateImage,btnResizeImage,btnFitImage,btnGallery,btnSaveImage,btnValiderUrl;
+    private int i =0;
+    private String width, height;
+    private boolean stop = false;
+    private EditText inputValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,27 +42,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
 
-        String url = "https://i.imgur.com/DvpvklR.png";
+        /*String url = "https://i.imgur.com/DvpvklR.png";
         imageView = (ImageView) findViewById(R.id.imageView);
         Picasso mPicasso = Picasso.with(this);
         mPicasso.setIndicatorsEnabled(true);
-        mPicasso.with(this).load(url).into(imageView);
+        mPicasso.with(this).load(url).into(imageView);*/
+        inputValue = (EditText) findViewById(R.id.url_txt);
 
         btnRotateImage = (Button) findViewById(R.id.btnRotate);
         btnResizeImage = (Button) findViewById(R.id.btnResize);
         btnFitImage = (Button) findViewById(R.id.btnFit);
         btnGallery = (Button) findViewById(R.id.btnGallery);
-
+        btnSaveImage = (Button) findViewById(R.id.btnSave);
+        btnValiderUrl = (Button) findViewById(R.id.valider_btn);
 
         btnRotateImage.setOnClickListener(this);
         btnResizeImage.setOnClickListener(this);
         btnFitImage.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
+        btnSaveImage.setOnClickListener(this);
+        btnValiderUrl.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.valider_btn:
+                Picasso.with(this).load(String.valueOf(inputValue.getText())).into(imageView);
+                break;
             case R.id.btnRotate:
                 rotate();
                 break;
@@ -76,21 +84,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btnSave:
+                Intent intentSave = new Intent(MainActivity.this, GalleryActivity.class);
+                intentSave.putExtra("url", inputValue.getText());
+                startActivity(intentSave);
+                break;
         }
     }
 
     private void rotate(){
         if (i == 0){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(90f).into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).into(imageView);
             i++;
         } else if (i == 1){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(180f).into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).into(imageView);
             i++;
         } else if (i == 2){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(270f).into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).into(imageView);
             i++;
         } else if (i == 3){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(360f).into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(360f).into(imageView);
             i = 0;
         }
     }
@@ -106,13 +119,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int h = Integer.parseInt(splitArray[1]);
 
             if (i == 0) {
-                Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").resize(w,h).into(imageView);
+                Picasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).into(imageView);
             }else if (i == 1){
-                Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(90f).resize(w,h).into(imageView);
+                Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).into(imageView);
             }else if (i == 2){
-                Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(180f).resize(w,h).into(imageView);
+                Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).into(imageView);
             }else if (i == 3){
-                Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(270f).resize(w,h).into(imageView);
+                Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).into(imageView);
             }
         }
     }
@@ -161,13 +174,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void fit(){
         if (i == 0) {
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").fit().into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).fit().into(imageView);
         }else if (i == 1){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(90f).fit().into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).fit().into(imageView);
         }else if (i == 2){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(180f).fit().into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).fit().into(imageView);
         }else if (i == 3){
-            Picasso.with(this).load("https://i.imgur.com/DvpvklR.png").rotate(270f).fit().into(imageView);
+            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).fit().into(imageView);
         }
         Toast.makeText(getApplicationContext(), "Fit", Toast.LENGTH_SHORT).show();
     }
