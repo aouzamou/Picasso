@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String width, height;
     private boolean stop = false;
     private EditText inputValue;
+    private Picasso mPicasso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*String url = "https://i.imgur.com/DvpvklR.png";
         mPicasso.with(this).load(url).into(imageView);*/
 
-        Picasso mPicasso = Picasso.with(this);
+        mPicasso = Picasso.with(this);
         mPicasso.setIndicatorsEnabled(true);
-        
+
         inputValue = (EditText) findViewById(R.id.url_txt);
         imageView = (ImageView) findViewById(R.id.imageView);
         btnRotateImage = (Button) findViewById(R.id.btnRotate);
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.valider_btn:
-                Picasso.with(this).load(String.valueOf(inputValue.getText())).into(imageView);
+                mPicasso.with(this).load(String.valueOf(inputValue.getText())).into(imageView);
                 break;
             case R.id.btnRotate:
                 rotate();
@@ -98,16 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void rotate(){
         if (i == 0){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).into(imageView);
             i++;
         } else if (i == 1){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).into(imageView);
             i++;
         } else if (i == 2){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).into(imageView);
             i++;
         } else if (i == 3){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(360f).into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(360f).into(imageView);
             i = 0;
         }
     }
@@ -123,13 +124,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int h = Integer.parseInt(splitArray[1]);
 
             if (i == 0) {
-                Picasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).into(imageView);
+                mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).into(imageView);
             }else if (i == 1){
-                Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).into(imageView);
+                mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).into(imageView);
             }else if (i == 2){
-                Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).into(imageView);
+                mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).into(imageView);
             }else if (i == 3){
-                Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).into(imageView);
+                mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).into(imageView);
             }
         }
     }
@@ -178,13 +179,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void fit(){
         if (i == 0) {
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).fit().into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).fit().into(imageView);
         }else if (i == 1){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).fit().into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).fit().into(imageView);
         }else if (i == 2){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).fit().into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).fit().into(imageView);
         }else if (i == 3){
-            Picasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).fit().into(imageView);
+            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).fit().into(imageView);
         }
         Toast.makeText(getApplicationContext(), "Fit", Toast.LENGTH_SHORT).show();
     }
