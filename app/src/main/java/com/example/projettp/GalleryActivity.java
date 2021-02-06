@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,14 +24,17 @@ public class GalleryActivity extends AppCompatActivity implements View.OnClickLi
     private Button btnReturn;
     private String url;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galery);
+
         Intent intentSave = getIntent();
-        url = intentSave.getStringExtra(url);
+        if (intentSave != null) {
+            if (intentSave.hasExtra("url_image")) {
+                url = intentSave.getStringExtra("url_image");
+            }
+        }
 
 
         recyclerView = findViewById(R.id.Recycler);

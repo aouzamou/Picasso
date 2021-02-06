@@ -38,17 +38,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initView();
+
     }
 
     private void initView() {
 
         /*String url = "https://i.imgur.com/DvpvklR.png";
-        imageView = (ImageView) findViewById(R.id.imageView);
+        mPicasso.with(this).load(url).into(imageView);*/
+
         Picasso mPicasso = Picasso.with(this);
         mPicasso.setIndicatorsEnabled(true);
-        mPicasso.with(this).load(url).into(imageView);*/
+        
         inputValue = (EditText) findViewById(R.id.url_txt);
-
+        imageView = (ImageView) findViewById(R.id.imageView);
         btnRotateImage = (Button) findViewById(R.id.btnRotate);
         btnResizeImage = (Button) findViewById(R.id.btnResize);
         btnFitImage = (Button) findViewById(R.id.btnFit);
@@ -86,7 +88,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnSave:
                 Intent intentSave = new Intent(MainActivity.this, GalleryActivity.class);
-                intentSave.putExtra("url", inputValue.getText());
+                Bundle bundle = new Bundle();
+                bundle.putString("url_image", String.valueOf(inputValue.getText()));
+                intentSave.putExtras(bundle);
                 startActivity(intentSave);
                 break;
         }
