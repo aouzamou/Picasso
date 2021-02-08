@@ -31,7 +31,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder>{
         //Permet de renseigner l'image à afficher dans la galerie
         @Override
         public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-            Picasso.with(mContext).load(mdata.get(position).getUrl()).into(holder.image);
+            Picasso.with(mContext).load(mdata.get(position).getUrl()).error(R.drawable.erreur).into(holder.image);
         }
 
 

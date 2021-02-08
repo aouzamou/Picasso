@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.squareup.picasso.Picasso;
 
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.valider_btn:
-                mPicasso.with(this).load(String.valueOf(inputValue.getText())).into(imageView);
+                mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).into(imageView);
                 break;
             case R.id.btnRotate:
                 rotate();
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Permet de passer à l'activité galerie pour sauvegarder l'image en passant l'url de l'image
                 Intent intentSave = new Intent(MainActivity.this, GalleryActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("url_image", String.valueOf(inputValue.getText()));
+                bundle.putString("url_image", getUrl());
                 intentSave.putExtras(bundle);
                 startActivity(intentSave);
                 break;
@@ -109,16 +110,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Permet de pivoter l'image de 90° vers la droite
     private void rotate(){
         if (i == 0){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(90f).into(imageView);
             i++;
         } else if (i == 1){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(180f).into(imageView);
             i++;
         } else if (i == 2){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(270f).into(imageView);
             i++;
         } else if (i == 3){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(360f).into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(360f).into(imageView);
             i = 0;
         }
     }
@@ -136,35 +137,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (i == 0) {
                 if(!centerCrop && !centerInside) {
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w, h).into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).resize(w, h).into(imageView);
                 }else if(centerCrop = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).centerCrop().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).resize(w,h).centerCrop().into(imageView);
                 }else if (centerInside = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).centerInside().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).resize(w,h).centerInside().into(imageView);
                 }
             }else if (i == 1){
                 if(!centerCrop && !centerInside) {
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(90f).resize(w,h).into(imageView);
                 }else if(centerCrop = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).centerCrop().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(90f).resize(w,h).centerCrop().into(imageView);
                 }else if (centerInside = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).centerInside().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(90f).resize(w,h).centerInside().into(imageView);
                 }
             }else if (i == 2){
                 if(!centerCrop && !centerInside) {
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(180f).resize(w,h).into(imageView);
                 }else if(centerCrop = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).centerCrop().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(180f).resize(w,h).centerCrop().into(imageView);
                 }else if (centerInside = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).centerInside().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(180f).resize(w,h).centerInside().into(imageView);
                 }
             }else if (i == 3){
                 if(!centerCrop && !centerInside) {
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(270f).resize(w,h).into(imageView);
                 }else if(centerCrop = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).centerCrop().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(270f).resize(w,h).centerCrop().into(imageView);
                 }else if (centerInside = true){
-                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).centerInside().into(imageView);
+                    mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(270f).resize(w,h).centerInside().into(imageView);
                 }
             }
         }
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setTitle("Comment souhaitez vous recadrer l'image ?");
 
         LinearLayout lila1= new LinearLayout(this);
+        lila1.setOrientation(LinearLayout.VERTICAL);
         final EditText input = new EditText(this);
         final EditText input1 = new EditText(this);
         lila1.addView(input);
@@ -226,13 +228,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Permet de remplir l'imageView avec l'image
     private void fit(){
         if (i == 0) {
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).fit().into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).fit().into(imageView);
         }else if (i == 1){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).fit().into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(90f).fit().into(imageView);
         }else if (i == 2){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).fit().into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(180f).fit().into(imageView);
         }else if (i == 3){
-            mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).fit().into(imageView);
+            mPicasso.with(this).load(getUrl()).error(R.drawable.erreur).rotate(270f).fit().into(imageView);
+        }
+    }
+
+    private String getUrl(){
+        if (inputValue.getText().toString().contentEquals("")){
+            return "noUrl";
+        }
+        else {
+            return inputValue.getText().toString();
         }
     }
 }
