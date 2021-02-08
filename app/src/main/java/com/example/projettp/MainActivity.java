@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +28,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    // Définition des variables globales
     private ImageView imageView;
     private Button btnRotateImage,btnResizeImage,btnFitImage,btnGallery,btnSaveImage,btnValiderUrl;
     private int i =0;
     private String width, height;
-    private boolean stop = false;
+    private boolean stop,centerCrop,centerInside;
     private EditText inputValue;
     private Picasso mPicasso;
 
+    //On create: se déclenche au lancement de l'activité
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    //Initialisation des variables
     private void initView() {
-
-        /*String url = "https://i.imgur.com/DvpvklR.png";
-
-        Picasso mPicasso = Picasso.with(this);
-        mPicasso.setIndicatorsEnabled(true);
-        mPicasso.with(this).load(url).into(imageView);*/
         mPicasso = Picasso.with(this);
         mPicasso.setIndicatorsEnabled(true);
 
@@ -70,8 +68,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnGallery.setOnClickListener(this);
         btnSaveImage.setOnClickListener(this);
         btnValiderUrl.setOnClickListener(this);
+
+        stop = false;
+        centerCrop = false;
+        centerInside = false;
     }
 
+    //Déclenchement lors du clic sur un bouton
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -83,16 +86,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnResize:
                 dialogBoxResize();
-                resize();
                 break;
             case R.id.btnFit:
                 fit();
                 break;
             case R.id.btnGallery:
+                //Permet de passer à l'activité galerie
                 Intent intent = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnSave:
+                //Permet de passer à l'activité galerie pour sauvegarder l'image en passant l'url de l'image
                 Intent intentSave = new Intent(MainActivity.this, GalleryActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("url_image", String.valueOf(inputValue.getText()));
@@ -102,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //Permet de pivoter l'image de 90° vers la droite
     private void rotate(){
         if (i == 0){
             mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).into(imageView);
@@ -118,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Permet de redimensionner l'image selon certains paramètres
     private void resize(){
         if(width != null && height != null && !stop){
 
@@ -129,46 +135,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int h = Integer.parseInt(splitArray[1]);
 
             if (i == 0) {
-                mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).into(imageView);
+                if(!centerCrop && !centerInside) {
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w, h).into(imageView);
+                }else if(centerCrop = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).centerCrop().into(imageView);
+                }else if (centerInside = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).resize(w,h).centerInside().into(imageView);
+                }
             }else if (i == 1){
-                mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).into(imageView);
+                if(!centerCrop && !centerInside) {
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).into(imageView);
+                }else if(centerCrop = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).centerCrop().into(imageView);
+                }else if (centerInside = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(90f).resize(w,h).centerInside().into(imageView);
+                }
             }else if (i == 2){
-                mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).into(imageView);
+                if(!centerCrop && !centerInside) {
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).into(imageView);
+                }else if(centerCrop = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).centerCrop().into(imageView);
+                }else if (centerInside = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(180f).resize(w,h).centerInside().into(imageView);
+                }
             }else if (i == 3){
-                mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).into(imageView);
+                if(!centerCrop && !centerInside) {
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).into(imageView);
+                }else if(centerCrop = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).centerCrop().into(imageView);
+                }else if (centerInside = true){
+                    mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).resize(w,h).centerInside().into(imageView);
+                }
             }
         }
     }
 
+    //Boite de dialogue pour renseigner les paramètres utiles au redimensionnement de l'image
     private void dialogBoxResize(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Comment souhaitez vous recadrer l'image ?");
 
         LinearLayout lila1= new LinearLayout(this);
-        lila1.setOrientation(LinearLayout.VERTICAL); //1 is for vertical orientation
         final EditText input = new EditText(this);
         final EditText input1 = new EditText(this);
         lila1.addView(input);
         lila1.addView(input1);
+
+        RadioButton btn1 = new RadioButton(this);
+        RadioButton btn2 = new RadioButton(this);
+        lila1.addView(btn1);
+        lila1.addView(btn2);
+
         builder.setView(lila1);
 
         input.setText("Hauteur (pixels):");
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        //builder.setView(input);
 
         input1.setText("Largeur (pixels):");
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input1.setInputType(InputType.TYPE_CLASS_TEXT);
-        //builder.setView(input2);
 
-        // Set up the buttons
+        btn1.setText("CenterCrop");
+        btn2.setText("CenterInside");
+
         builder.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 height = input.getText().toString();
                 width = input1.getText().toString();
-
+                if(btn1.isChecked()){
+                    centerCrop = true;
+                }else if (btn2.isChecked()){
+                    centerInside = true;
+                }
+                resize();
             }
         });
         builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -180,8 +219,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         builder.show();
+
+
     }
 
+    //Permet de remplir l'imageView avec l'image
     private void fit(){
         if (i == 0) {
             mPicasso.with(this).load(String.valueOf(inputValue.getText())).fit().into(imageView);
@@ -192,6 +234,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if (i == 3){
             mPicasso.with(this).load(String.valueOf(inputValue.getText())).rotate(270f).fit().into(imageView);
         }
-        Toast.makeText(getApplicationContext(), "Fit", Toast.LENGTH_SHORT).show();
     }
 }

@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder>{
 
+        //Constructeur
         public Adapter(Context mContext, List<row> mdata) {
             this.mContext = mContext;
             this.mdata = mdata;
@@ -27,6 +28,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ImageViewHolder>{
             return new ImageViewHolder(view);
         }
 
+        //Permet de renseigner l'image à afficher dans la galerie
         @Override
         public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
             Picasso.with(mContext).load(mdata.get(position).getUrl()).into(holder.image);
